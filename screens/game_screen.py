@@ -17,6 +17,7 @@ class GameScreen(Screen):
         self.lost = False
         self.current_score = [0, 0]
         self.ai = True
+        self.close = False
         self.p1 = Paddle("left")
         self.p2 = Paddle("right")
         self.paddles = pygame.sprite.Group()
@@ -25,9 +26,10 @@ class GameScreen(Screen):
         pygame.mixer.music.play(-1)
         self.bounce = pygame.mixer.Sound("./sounds/pop.wav")
         self.over = pygame.mixer.Sound("./sounds/lose.wav")
-        self.endround = Button("./img/roundclicked.png", "./img/round.png", 235, 400)
+        self.quitrounds = Button("./img/quitclicked.png", "./img/quit.png", 260, 400)
+        self.endround = Button("./img/roundclicked.png", "./img/round.png", 235, 470)
         self.buttons = pygame.sprite.Group()
-        self.buttons.add(self.endround)
+        self.buttons.add(self.endround, self.quitrounds)
         self.background = Background('./img/gamebg.png')
         self.images = pygame.sprite.Group()
         self.images.add(self.background)
@@ -108,6 +110,15 @@ class GameScreen(Screen):
             self.round_end()
             self.buttons.draw(self.window)
             pygame.event.pump()
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                self.endround.click_sound()
+                print("End round via spacebar")
+                self.running=False
+            if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                self.quitrounds.click_sound()
+                self.close = True
+                print("End round via escape")
+                self.running=False
             mouse_state = pygame.mouse.get_pressed()
             mouse_pos = pygame.mouse.get_pos()
             for button in self.buttons:
@@ -119,6 +130,11 @@ class GameScreen(Screen):
                 if self.endround.check_mouse(mouse_pos):
                     self.endround.click_sound()
                     print("Ending Round")
+                    self.running = False
+                if self.quitrounds.check_mouse(mouse_pos):
+                    self.quitrounds.click_sound()
+                    print("Ending Round")
+                    self.close = True
                     self.running = False
             
             if self.ball.rect.x < (LIMITS["right"] // 2):

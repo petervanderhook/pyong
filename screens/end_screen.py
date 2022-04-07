@@ -20,6 +20,9 @@ class EndScreen(Screen):
         pygame.mixer.music.play(-1)
         self.titlefont = pygame.font.Font('./spacemission.otf', 60)
         self.title = self.titlefont.render("error", True, (40, 86, 155))
+        self.scorefont = pygame.font.Font('./spacemission.otf', 30)
+        self.score1 = self.scorefont.render("Player 1: 0", True, (125, 150, 245))
+        self.score2 = self.scorefont.render("Player 2: 0", True, (125, 150, 245))
         
     def process_loop(self):
         pygame.event.pump()
@@ -27,6 +30,8 @@ class EndScreen(Screen):
         mouse_pos = pygame.mouse.get_pos()
         self.images.draw(self.window)
         self.buttons.draw(self.window)
+        self.window.blit(self.score1, (50, 50))
+        self.window.blit(self.score2, (390, 50))
         print(self.text)
         if self.text == "TIE!":
             self.window.blit(self.title, (250, 200))
@@ -43,6 +48,10 @@ class EndScreen(Screen):
                 print("Clicked duo")
                 self.endgame.click_sound()
                 self.running = False
-    
+        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+            self.endgame.click_sound()
+            print("End round via spacebar")
+            self.running=False
+        
     def process_event(self, event):
         pass

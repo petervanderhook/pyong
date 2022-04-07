@@ -16,26 +16,30 @@ class MenuScreen(Screen):
         pygame.mixer.music.play(-1)
         pygame.display.set_caption('Total Tennis')
         self.buttons = pygame.sprite.Group()
-        self.playduo = Button("./img/playclicked.png", "./img/play.png", 380, 400)
-        self.playai = Button("./img/playclicked.png", "./img/play.png", 100, 400)
+        self.playduo = Button("./img/playclicked.png", "./img/play.png", 380, 500)
+        self.playai = Button("./img/playclicked.png", "./img/play.png", 100, 500)
+        self.playpractice = Button("./img/practiceclicked.png", "./img/practice.png", 100, 360)
         self.plus = Button("./img/plusclicked.png", "./img/plus.png", 520, 140)
         self.minus = Button("./img/minusclicked.png", "./img/minus.png", 430, 140)
-        self.buttons.add(self.playduo, self.playai, self.plus, self.minus)
+        self.buttons.add(self.playduo, self.playai, self.plus, self.minus, self.playpractice)
         self.click_sound = pygame.mixer.Sound("./sounds/pop.wav")
         self.rounds = 3
+        self.close = False
         self.titlefont = pygame.font.Font('./spacemission.otf', 75)
         self.font = pygame.font.Font('./spacemission.otf', 35)
         self.toolfont = pygame.font.Font('./spacemission.otf', 15)
         self.title1 = self.titlefont.render("Total", True, (40, 86, 155))
-        self.title2 = self.titlefont.render("Tennis", True, (40, 86, 155))
+        self.title2 = self.titlefont.render("Tennis", True, (40, 86, 155))  
         self.tooltip = self.toolfont.render("Min: 3 \nMax: 10", True, ((125, 150, 245)))
         self.rounds_text = self.font.render(f"Rounds:   {self.rounds}", True, (125, 150, 245))
         self.ai_text = self.font.render("vs. AI", True, (40, 86, 155))
+        self.practice_text = self.font.render("Practice Mode", True, (40, 86, 155))
         self.player_text = self.font.render("vs. Player", True, (40, 86, 155))
         self.background = Background('./img/background.png')
         self.images = pygame.sprite.Group()
         self.images.add(self.background)
         self.gamestate = None
+        self.practice = False
 
         
     
@@ -49,6 +53,7 @@ class MenuScreen(Screen):
         self.window.blit(self.rounds_text, (300, 200))
         self.window.blit(self.tooltip, (320, 230))
         self.window.blit(self.ai_text, (115, 450))
+        self.window.blit(self.practice_text, (35, 310))
         self.window.blit(self.player_text, (360, 450))
     
     def process_event(self, event):
@@ -61,6 +66,12 @@ class MenuScreen(Screen):
             else:
                 button.unhover()
         if mouse_state[0]:
+            if self.playpractice.check_mouse(mouse_pos):
+                print("Clicked practice")
+                self.playpractice.click_sound()
+                self.gamestate = [1000, True]
+                self.running = False
+                return self.gamestate
             if self.playduo.check_mouse(mouse_pos):
                 print("Clicked duo")
                 self.playduo.click_sound()
