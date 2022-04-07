@@ -1,0 +1,2 @@
+Use pygame.key.get-pressed() #Lets multiple keys be pressed and toggle events at the same time!
+Do above in the process loop of pygame.
