@@ -1,6 +1,7 @@
 import pygame
 from constants import LIMITS
-
+import time
+import random
 
 class Paddle(pygame.sprite.Sprite):
     """Paddle class"""
@@ -45,3 +46,17 @@ class Paddle(pygame.sprite.Sprite):
         self.rect.y = self.rect.y + self.speed
         if self.rect.y > LIMITS["down"] - self.size[1]:
             self.rect.y = LIMITS["down"] - self.size[1]
+    
+    def check_move(self, ball_y):
+        self.speed = 5
+        vary = random.randrange(-25, 40)
+        ball_y += vary
+        width = self.image.get_width()
+        core = self.rect.y + (width)
+        if core > ball_y:
+            self.up()
+        elif core < ball_y:
+            self.down()
+        else:
+            pass
+

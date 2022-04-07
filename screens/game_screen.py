@@ -2,6 +2,7 @@ import pygame
 from .base_screen import Screen
 from models import Ball, Paddle
 from constants import LIMITS
+import time
 
 class GameScreen(Screen):
     """Example class for a Pong game screen"""
@@ -13,6 +14,7 @@ class GameScreen(Screen):
         # Create objects
         self.ball = Ball()
         self.ball.launch()
+        self.ai = True
         self.p1 = Paddle("left")
         self.p2 = Paddle("right")
         self.paddles = pygame.sprite.Group()
@@ -42,14 +44,22 @@ class GameScreen(Screen):
         self.paddles.draw(self.window)
         self.window.blit(self.ball.image, self.ball.rect)
 
-        if pygame.key.get_pressed()[pygame.K_UP]:
-            self.p2.up()
-        elif pygame.key.get_pressed()[pygame.K_DOWN]:
-            self.p2.down()
+        # Player 1 Movement
         if pygame.key.get_pressed()[pygame.K_w]:
             self.p1.up()
         elif pygame.key.get_pressed()[pygame.K_s]:
             self.p1.down()
+
+        # Player 2 movement (only if self.ai = False)
+        if self.ai == False:
+            if pygame.key.get_pressed()[pygame.K_UP]:
+                self.p2.up()
+            elif pygame.key.get_pressed()[pygame.K_DOWN]:
+                self.p2.down()
+        else:
+            ball_height = self.ball.image.get_height()
+            ball_y = self.ball.rect.y + (ball_height / 2)
+            self.p2.check_move(ball_y)
 
 
         if pygame.Rect.colliderect(self.ball.rect, self.p1.rect):

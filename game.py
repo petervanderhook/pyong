@@ -18,6 +18,8 @@ def main():
     pygame.init()
     window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     screen = MenuScreen(window)
+    #screen = GameScreen(window)
+    #screen.ai = True
     result = screen.loop()
     
     if result:

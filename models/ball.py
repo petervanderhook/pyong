@@ -34,10 +34,17 @@ class Ball(pygame.sprite.Sprite):
 
     def launch(self, direction=None, hspeed=2, vspeed=-4):
         """Launches the ball up in the air"""
-        self.hspeed = hspeed
+        varx = random.randrange(-2, 2)
+        vary = random.randrange(-2, 2)
+        self.hspeed = hspeed + varx
         if direction == "left": 
             self.hspeed = -self.hspeed
-        self.vspeed = vspeed
+        self.vspeed = vspeed + vary
+
+        while (self.hspeed > -3) and (self.hspeed < 3):
+            varx = random.randrange(-2, 2)
+            self.hspeed+= varx
+            
 
     def update(self):
         """Convenience method"""
@@ -87,5 +94,7 @@ class Ball(pygame.sprite.Sprite):
             self.vspeed = -self.vspeed * 0.5
         # Power bounce: increase the speed of the ball
         if power:
-            self.hspeed *= 1.3
-            self.vspeed *= 1.1
+            if self.hspeed < 16:
+                self.hspeed *= 1.3
+            if self.vspeed < 6:
+                self.vspeed *= 1.3
