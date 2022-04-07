@@ -32,7 +32,7 @@ class GameScreen(Screen):
         self.images = pygame.sprite.Group()
         self.images.add(self.background)
         self.scorefont = pygame.font.Font('./spacemission.otf', 20)
-        self.scores = self.scorefont.render("Scores", True, (40, 86, 155))
+        self.scores = self.scorefont.render("Scores", True, (125, 150, 245))
 
 
     def process_event(self, event):
@@ -46,7 +46,7 @@ class GameScreen(Screen):
 
     def round_end(self):
         self.titlefont = pygame.font.Font('./spacemission.otf', 75)
-        self.title = self.titlefont.render("Round Over", True, (40, 86, 155))
+        self.title = self.titlefont.render("Round Over", True, (125, 150, 245))
         self.window.blit(self.title, (90, 100))
         
 

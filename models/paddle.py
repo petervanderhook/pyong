@@ -51,7 +51,7 @@ class Paddle(pygame.sprite.Sprite):
     def check_move(self, ball_y, ball_offlimits=False):
         if ball_offlimits != True:
             self.speed = 5
-            vary = random.randrange(-25, 40)
+            vary = random.randrange(-125, 25)
             ball_y += vary
             width = self.image.get_width()
             core = self.rect.y + (width)

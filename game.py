@@ -22,8 +22,8 @@ def main():
     for i in range(0, rounds):
         game = GameScreen(window)
         game.current_score = score
-        game.score1 = game.scorefont.render(f"{score[1]}", True, (40, 86, 155))
-        game.score2 = game.scorefont.render(f"{score[0]}", True, (40, 86, 155))
+        game.score1 = game.scorefont.render(f"{score[1]}", True, (125, 150, 245))
+        game.score2 = game.scorefont.render(f"{score[0]}", True, (125, 150, 245))
         game.ai = ai
         game
         result = game.loop()

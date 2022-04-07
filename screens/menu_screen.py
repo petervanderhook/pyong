@@ -18,8 +18,8 @@ class MenuScreen(Screen):
         self.buttons = pygame.sprite.Group()
         self.playduo = Button("./img/playclicked.png", "./img/play.png", 380, 400)
         self.playai = Button("./img/playclicked.png", "./img/play.png", 100, 400)
-        self.plus = Button("./img/plusclicked.png", "./img/plus.png", 430, 140)
-        self.minus = Button("./img/minusclicked.png", "./img/minus.png", 520, 140)
+        self.plus = Button("./img/plusclicked.png", "./img/plus.png", 520, 140)
+        self.minus = Button("./img/minusclicked.png", "./img/minus.png", 430, 140)
         self.buttons.add(self.playduo, self.playai, self.plus, self.minus)
         self.click_sound = pygame.mixer.Sound("./sounds/pop.wav")
         self.rounds = 3
