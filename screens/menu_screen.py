@@ -65,10 +65,6 @@ class MenuScreen(Screen):
         self.window.blit(self.ai_text, (115, 450))
         self.window.blit(self.practice_text, (35, 310))
         self.window.blit(self.player_text, (360, 450))
-        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
-            self.playai.click_sound()
-            print("End game via escape")
-            self.running=False
     
     def process_event(self, event):
         """Updates button colors if the mouse hovers them, 
