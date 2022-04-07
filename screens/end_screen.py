@@ -1,6 +1,7 @@
 import pygame
 from models import Background, Button
 from .base_screen import Screen
+from constants import LIMITS, WINDOW_HEIGHT as winy, WINDOW_WIDTH as winx
 
 
 class EndScreen(Screen):
@@ -45,14 +46,14 @@ class EndScreen(Screen):
         self.buttons.draw(self.window)
 
         # Draws text
-        self.window.blit(self.score1, (50, 50))
-        self.window.blit(self.score2, (390, 50))
+        self.window.blit(self.score1, ((winx/12), (winy/12)))
+        self.window.blit(self.score2, ((winx/20)*13, (winy/12)))
 
         # Draws text based on whether tie or win
         if self.text == "TIE!":
-            self.window.blit(self.title, (250, 200))
+            self.window.blit(self.title, ((winx/12)*5, (winx/6)*2))
         else:
-            self.window.blit(self.title, (40, 200))
+            self.window.blit(self.title, ((winx/30)*2, (winx/6)*2))
         
         # Checks buttons if they need to be hovered.
         for button in self.buttons:

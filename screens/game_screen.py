@@ -1,7 +1,7 @@
 import pygame
 from .base_screen import Screen
 from models import Ball, Paddle, Button, Background
-from constants import LIMITS
+from constants import LIMITS, WINDOW_HEIGHT as winy, WINDOW_WIDTH as winx
 import time
 
 class GameScreen(Screen):
@@ -30,8 +30,8 @@ class GameScreen(Screen):
         pygame.mixer.music.play(-1)
         self.bounce = pygame.mixer.Sound("./sounds/pop.wav")
         self.over = pygame.mixer.Sound("./sounds/lose.wav")
-        self.quitrounds = Button("./img/quitclicked.png", "./img/quit.png", 260, 400)
-        self.endround = Button("./img/roundclicked.png", "./img/round.png", 235, 470)
+        self.quitrounds = Button("./img/quitclicked.png", "./img/quit.png", int(winx/2.307), (winy/6)*4)
+        self.endround = Button("./img/roundclicked.png", "./img/round.png", int(winx/2.55319), int(winy/1.27659))
 
         # Buttons, Background, Fonts
         self.buttons = pygame.sprite.Group()
@@ -53,7 +53,7 @@ class GameScreen(Screen):
         """Displays ROUND OVER text after ball is off limits"""
         self.titlefont = pygame.font.Font('./spacemission.otf', 75)
         self.title = self.titlefont.render("Round Over", True, (125, 150, 245))
-        self.window.blit(self.title, (90, 100))
+        self.window.blit(self.title, ((winx/20)*3, (winy/6)))
         
 
 
@@ -67,9 +67,9 @@ class GameScreen(Screen):
 
         # Draws images, buttons, and fonts
         self.images.draw(self.window)
-        self.window.blit(self.scores, (270, 20))
-        self.window.blit(self.score1, (235, 20))
-        self.window.blit(self.score2, (360, 20))
+        self.window.blit(self.scores, ((winx/20) * 9, (winy/30)))
+        self.window.blit(self.score1, (int(winx/2.55319), 20))
+        self.window.blit(self.score2, ((winx/10)*6, (winy/30)))
         self.paddles.draw(self.window)
         self.window.blit(self.ball.image, self.ball.rect)
 

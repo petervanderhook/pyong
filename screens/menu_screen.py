@@ -1,7 +1,7 @@
 import pygame
 from models import Button, Background
 from .base_screen import Screen
-from constants import LIMITS
+from constants import LIMITS, WINDOW_HEIGHT as winy, WINDOW_WIDTH as winx
 
 class MenuScreen(Screen):
     """Example class for a Pong game screen"""
@@ -24,11 +24,11 @@ class MenuScreen(Screen):
 
         # Makes buttons and adds them to a group
         self.buttons = pygame.sprite.Group()
-        self.playduo = Button("./img/playclicked.png", "./img/play.png", 380, 500)
-        self.playai = Button("./img/playclicked.png", "./img/play.png", 100, 500)
-        self.playpractice = Button("./img/practiceclicked.png", "./img/practice.png", 100, 360)
-        self.plus = Button("./img/plusclicked.png", "./img/plus.png", 520, 140)
-        self.minus = Button("./img/minusclicked.png", "./img/minus.png", 430, 140)
+        self.playduo = Button("./img/playclicked.png", "./img/play.png", int(winx/1.5789), (winy / 1.2))
+        self.playai = Button("./img/playclicked.png", "./img/play.png", (winx/6), (winx/6)*5)
+        self.playpractice = Button("./img/practiceclicked.png", "./img/practice.png", (winx/6), ((winx/10) * 6))
+        self.plus = Button("./img/plusclicked.png", "./img/plus.png", int(winx/1.1538), int(winy/4.2857))
+        self.minus = Button("./img/minusclicked.png", "./img/minus.png", int(winx/1.3953), int(winy/4.2857))
         self.buttons.add(self.playduo, self.playai, self.plus, self.minus, self.playpractice)
 
         # Fonts
@@ -58,13 +58,13 @@ class MenuScreen(Screen):
         self.buttons.draw(self.window)
         # draw text
         self.rounds_text = self.font.render(f"Rounds:   {self.rounds}", True, (125, 150, 245))
-        self.window.blit(self.title1, (50, 50))
-        self.window.blit(self.title2, (160, 110))
-        self.window.blit(self.rounds_text, (300, 200))
-        self.window.blit(self.tooltip, (320, 230))
-        self.window.blit(self.ai_text, (115, 450))
-        self.window.blit(self.practice_text, (35, 310))
-        self.window.blit(self.player_text, (360, 450))
+        self.window.blit(self.title1, ((winx / 12), winy / 12))
+        self.window.blit(self.title2, ((winx / 3.75), int(winy / 5.4545)))
+        self.window.blit(self.rounds_text, ((winx / 2), winy / 3))
+        self.window.blit(self.tooltip, ((winx / 1.875), int(winy / 2.608)))
+        self.window.blit(self.ai_text, (int(winx / 5.217), (winx / 4) * 3))
+        self.window.blit(self.practice_text, (int(winx / 17.1428), (winy / 1.93548)))
+        self.window.blit(self.player_text, (int(winx/1.666666), (winx / 4) * 3))
     
     def process_event(self, event):
         """Updates button colors if the mouse hovers them, 
