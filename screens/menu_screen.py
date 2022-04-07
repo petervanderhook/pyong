@@ -7,14 +7,22 @@ class MenuScreen(Screen):
     """Example class for a Pong game screen"""
 
     def __init__(self, *args, **kwargs):
-        # Call the parent constructor
+        """Constructor for menu screen."""
         super().__init__(*args, **kwargs)
-        # Create objects
-        #self.ball = Ball()
-        #self.ball.launch()
+
+        #Values to be accessed/returned
+        self.rounds = 3
+        self.close = False
+        self.gamestate = None
+        self.practice = False
+        
+        # Loads and plays music, sets name of window and sounds
         pygame.mixer.music.load("./sounds/music.wav")
         pygame.mixer.music.play(-1)
         pygame.display.set_caption('Total Tennis')
+        self.click_sound = pygame.mixer.Sound("./sounds/pop.wav")
+
+        # Makes buttons and adds them to a group
         self.buttons = pygame.sprite.Group()
         self.playduo = Button("./img/playclicked.png", "./img/play.png", 380, 500)
         self.playai = Button("./img/playclicked.png", "./img/play.png", 100, 500)
@@ -22,9 +30,8 @@ class MenuScreen(Screen):
         self.plus = Button("./img/plusclicked.png", "./img/plus.png", 520, 140)
         self.minus = Button("./img/minusclicked.png", "./img/minus.png", 430, 140)
         self.buttons.add(self.playduo, self.playai, self.plus, self.minus, self.playpractice)
-        self.click_sound = pygame.mixer.Sound("./sounds/pop.wav")
-        self.rounds = 3
-        self.close = False
+
+        # Fonts
         self.titlefont = pygame.font.Font('./spacemission.otf', 75)
         self.font = pygame.font.Font('./spacemission.otf', 35)
         self.toolfont = pygame.font.Font('./spacemission.otf', 15)
@@ -35,18 +42,21 @@ class MenuScreen(Screen):
         self.ai_text = self.font.render("vs. AI", True, (40, 86, 155))
         self.practice_text = self.font.render("Practice Mode", True, (40, 86, 155))
         self.player_text = self.font.render("vs. Player", True, (40, 86, 155))
+
+        # Background image
         self.background = Background('./img/background.png')
         self.images = pygame.sprite.Group()
         self.images.add(self.background)
-        self.gamestate = None
-        self.practice = False
 
         
     
     def process_loop(self):
+        """Draws background, buttons, and text in the menu screen window. If ESC is pressed, quits the game.
+        """
+        # draw buttons and images
         self.images.draw(self.window)
         self.buttons.draw(self.window)
-        #draw text
+        # draw text
         self.rounds_text = self.font.render(f"Rounds:   {self.rounds}", True, (125, 150, 245))
         self.window.blit(self.title1, (50, 50))
         self.window.blit(self.title2, (160, 110))
@@ -55,8 +65,14 @@ class MenuScreen(Screen):
         self.window.blit(self.ai_text, (115, 450))
         self.window.blit(self.practice_text, (35, 310))
         self.window.blit(self.player_text, (360, 450))
+        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+            self.playai.click_sound()
+            print("End game via escape")
+            self.running=False
     
     def process_event(self, event):
+        """Updates button colors if the mouse hovers them, 
+        and checks where the mouse is located when it clicks, to know if a button is pressed."""
         pygame.event.pump()
         mouse_state = pygame.mouse.get_pressed()
         mouse_pos = pygame.mouse.get_pos()

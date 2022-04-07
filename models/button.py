@@ -5,11 +5,10 @@ import sys
 class Button(pygame.sprite.Sprite):
 
     def __init__(self, click_dir, img_dir, x, y, color=pygame.Color("navy")):
+        """Basic class for buttons."""
         super().__init__()
         self.dir = img_dir
         self.img = pygame.image.load(self.dir).convert_alpha()
-        width = self.img.get_width()
-        height = self.img.get_height()
         self.image = self.img
         clickedimg = pygame.image.load(click_dir).convert_alpha()
         self.clickedimg = clickedimg
@@ -18,12 +17,16 @@ class Button(pygame.sprite.Sprite):
         self.click = pygame.mixer.Sound('./sounds/click.wav')
 
     def hover(self):
+        """Changes sprites image to hovered image"""
         self.image = self.clickedimg
     
     def unhover(self):
+        """Changes sprites image to default image"""
         self.image = self.img
     
     def check_mouse(self, pos_tuple):
+        """ Checks if the mouse position (pos_tuple) is within the bounds of a button's borders.
+        If mouse within bounds, returns True."""
         #Tuple of range of x covered by sprite rect
         mouse_x = pos_tuple[0]
         mouse_y = pos_tuple[1]
@@ -34,4 +37,5 @@ class Button(pygame.sprite.Sprite):
                 return True
             
     def click_sound(self):
+        """Plays click sound when button is clicked."""
         pygame.mixer.Sound.play(self.click)
