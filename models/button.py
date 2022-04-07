@@ -10,13 +10,12 @@ class Button(pygame.sprite.Sprite):
         self.img = pygame.image.load(self.dir).convert_alpha()
         width = self.img.get_width()
         height = self.img.get_height()
-        print(width, height)
         self.image = self.img
         clickedimg = pygame.image.load(click_dir).convert_alpha()
         self.clickedimg = clickedimg
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-    
+        self.click = pygame.mixer.Sound('./sounds/click.wav')
 
     def hover(self):
         self.image = self.clickedimg
@@ -33,3 +32,6 @@ class Button(pygame.sprite.Sprite):
         if (mouse_x <= x_range[1]) and (mouse_x >= x_range[0]):
             if (mouse_y <= y_range[1]) and (mouse_y >= y_range[0]):
                 return True
+            
+    def click_sound(self):
+        pygame.mixer.Sound.play(self.click)

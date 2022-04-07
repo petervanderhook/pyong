@@ -1,7 +1,5 @@
 import pygame
-from models import button
-
-from models.button import Button
+from models import Button, Background
 from .base_screen import Screen
 from constants import LIMITS
 
@@ -16,6 +14,7 @@ class MenuScreen(Screen):
         #self.ball.launch()
         pygame.mixer.music.load("./sounds/music.wav")
         pygame.mixer.music.play(-1)
+        pygame.display.set_caption('Total Tennis')
         self.buttons = pygame.sprite.Group()
         self.playduo = Button("./img/playclicked.png", "./img/play.png", 380, 400)
         self.playai = Button("./img/playclicked.png", "./img/play.png", 100, 400)
@@ -33,12 +32,16 @@ class MenuScreen(Screen):
         self.rounds_text = self.font.render(f"Rounds:   {self.rounds}", True, (125, 150, 245))
         self.ai_text = self.font.render("vs. AI", True, (40, 86, 155))
         self.player_text = self.font.render("vs. Player", True, (40, 86, 155))
-        
+        self.background = Background('./img/background.png')
+        self.images = pygame.sprite.Group()
+        self.images.add(self.background)
+        self.gamestate = None
+
         
     
     def process_loop(self):
+        self.images.draw(self.window)
         self.buttons.draw(self.window)
-        
         #draw text
         self.rounds_text = self.font.render(f"Rounds:   {self.rounds}", True, (125, 150, 245))
         self.window.blit(self.title1, (50, 50))
@@ -60,15 +63,23 @@ class MenuScreen(Screen):
         if mouse_state[0]:
             if self.playduo.check_mouse(mouse_pos):
                 print("Clicked duo")
-                pass
+                self.playduo.click_sound()
+                self.gamestate = [self.rounds, False]
+                self.running = False
+                return self.gamestate
             if self.playai.check_mouse(mouse_pos):
+                self.playai.click_sound()
                 print("Clicked ai")
-                pass
+                self.gamestate = [self.rounds, True]
+                self.running = False
+                return self.gamestate
             if self.plus.check_mouse(mouse_pos):
+                self.plus.click_sound()
                 print("Clicked plus")
                 if self.rounds < 10:
                     self.rounds += 1
             if self.minus.check_mouse(mouse_pos):
+                self.minus.click_sound()
                 print("Clicked minus")
                 if self.rounds > 3:
                     self.rounds -= 1

@@ -11,10 +11,11 @@ class Paddle(pygame.sprite.Sprite):
 
         # Default size
         self.size = (10, 100)
-        self.score = 0
 
         # Default speed
         self.speed = 10
+
+        # Defaul score
         self.score = 0
 
         if not color:
@@ -47,16 +48,17 @@ class Paddle(pygame.sprite.Sprite):
         if self.rect.y > LIMITS["down"] - self.size[1]:
             self.rect.y = LIMITS["down"] - self.size[1]
     
-    def check_move(self, ball_y):
-        self.speed = 5
-        vary = random.randrange(-25, 40)
-        ball_y += vary
-        width = self.image.get_width()
-        core = self.rect.y + (width)
-        if core > ball_y:
-            self.up()
-        elif core < ball_y:
-            self.down()
-        else:
-            pass
+    def check_move(self, ball_y, ball_offlimits=False):
+        if ball_offlimits != True:
+            self.speed = 5
+            vary = random.randrange(-25, 40)
+            ball_y += vary
+            width = self.image.get_width()
+            core = self.rect.y + (width)
+            if core > ball_y:
+                self.up()
+            elif core < ball_y:
+                self.down()
+            else:
+                pass
 
