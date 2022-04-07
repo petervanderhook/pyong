@@ -1,5 +1,5 @@
 import pygame
-from constants import LIMITS
+from constants import LIMITS, WINDOW_HEIGHT as winy, WINDOW_WIDTH as winx
 import time
 import random
 
@@ -11,7 +11,7 @@ class Paddle(pygame.sprite.Sprite):
         super().__init__()
 
         # Default size
-        self.size = (10, 100)
+        self.size = (int(winx/60), int(winy/6))
 
         # Default speed
         self.speed = 10
@@ -56,9 +56,9 @@ class Paddle(pygame.sprite.Sprite):
         # Checks if the ball is offlimits. Wont move if the ball is out of bounds
         if ball_offlimits != True:
             # Sets speed to 5 (or its too strong!!)
-            self.speed = 5
+            self.speed = (winy/90)
             # Variation, (height is 100px, so the detection range of the paddle is +- 25 pixels on each edge of the paddle)
-            vary = random.randrange(-125, 25)
+            vary = random.randrange(int(-1 * (winx/24)) + int(self.size[1]*-1), int(winx/24))
             # ball.rect.y has vary added to it
             ball_y += vary
             width = self.image.get_width()

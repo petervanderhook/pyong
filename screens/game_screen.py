@@ -30,7 +30,7 @@ class GameScreen(Screen):
         pygame.mixer.music.play(-1)
         self.bounce = pygame.mixer.Sound("./sounds/pop.wav")
         self.over = pygame.mixer.Sound("./sounds/lose.wav")
-        self.quitrounds = Button("./img/quitclicked.png", "./img/quit.png", int(winx/2.307), (winy/6)*4)
+        self.quitrounds = Button("./img/quitclicked.png", "./img/quit.png", int(winx/2.307), int((winy/6)*4))
         self.endround = Button("./img/roundclicked.png", "./img/round.png", int(winx/2.55319), int(winy/1.27659))
 
         # Buttons, Background, Fonts
@@ -39,7 +39,7 @@ class GameScreen(Screen):
         self.background = Background('./img/gamebg.png')
         self.images = pygame.sprite.Group()
         self.images.add(self.background)
-        self.scorefont = pygame.font.Font('./spacemission.otf', 20)
+        self.scorefont = pygame.font.Font('./spacemission.otf', int((winx+winy)/60))
         self.scores = self.scorefont.render("Scores", True, (125, 150, 245))
 
 
@@ -51,7 +51,7 @@ class GameScreen(Screen):
 
     def round_end(self):
         """Displays ROUND OVER text after ball is off limits"""
-        self.titlefont = pygame.font.Font('./spacemission.otf', 75)
+        self.titlefont = pygame.font.Font('./spacemission.otf', int((winx+winy)/16))
         self.title = self.titlefont.render("Round Over", True, (125, 150, 245))
         self.window.blit(self.title, ((winx/20)*3, (winy/6)))
         
@@ -67,9 +67,9 @@ class GameScreen(Screen):
 
         # Draws images, buttons, and fonts
         self.images.draw(self.window)
-        self.window.blit(self.scores, ((winx/20) * 9, (winy/30)))
-        self.window.blit(self.score1, (int(winx/2.55319), 20))
-        self.window.blit(self.score2, ((winx/10)*6, (winy/30)))
+        self.window.blit(self.scores, (int((winx/20) * 9), int(winy/30)))
+        self.window.blit(self.score1, (int(winx/2.55319), int(winy/30)))
+        self.window.blit(self.score2, ((int(winx/10)*6), int(winy/30)))
         self.paddles.draw(self.window)
         self.window.blit(self.ball.image, self.ball.rect)
 

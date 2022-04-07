@@ -18,7 +18,7 @@ class EndScreen(Screen):
         self.background = Background('./img/gamebg.png')
         self.images = pygame.sprite.Group()
         self.images.add(self.background)
-        self.endgame = Button("./img/endgameclicked.png", "./img/endgame.png", 235, 300)
+        self.endgame = Button("./img/endgameclicked.png", "./img/endgame.png", int(winx/2.55319), int(winy/2))
         self.buttons = pygame.sprite.Group()
         self.buttons.add(self.endgame)
         
@@ -27,9 +27,9 @@ class EndScreen(Screen):
         pygame.mixer.music.play(-1)
 
         # Text and Fonts
-        self.titlefont = pygame.font.Font('./spacemission.otf', 60)
+        self.titlefont = pygame.font.Font('./spacemission.otf', int((winx+winy)/20))
         self.title = self.titlefont.render("error", True, (40, 86, 155))
-        self.scorefont = pygame.font.Font('./spacemission.otf', 30)
+        self.scorefont = pygame.font.Font('./spacemission.otf', int((winx+winy)/40))
         self.score1 = self.scorefont.render("Player 1: 0", True, (125, 150, 245))
         self.score2 = self.scorefont.render("Player 2: 0", True, (125, 150, 245))
         
@@ -46,14 +46,14 @@ class EndScreen(Screen):
         self.buttons.draw(self.window)
 
         # Draws text
-        self.window.blit(self.score1, ((winx/12), (winy/12)))
-        self.window.blit(self.score2, ((winx/20)*13, (winy/12)))
+        self.window.blit(self.score1, (int(winx/12), int(winy/12)))
+        self.window.blit(self.score2, (int((winx/20)*13), int(winy/12)))
 
         # Draws text based on whether tie or win
         if self.text == "TIE!":
-            self.window.blit(self.title, ((winx/12)*5, (winx/6)*2))
+            self.window.blit(self.title, (int((winx/12)*5), int((winx/6)*2)))
         else:
-            self.window.blit(self.title, ((winx/30)*2, (winx/6)*2))
+            self.window.blit(self.title, (int((winx/30)*2), int((winx/6)*2)))
         
         # Checks buttons if they need to be hovered.
         for button in self.buttons:

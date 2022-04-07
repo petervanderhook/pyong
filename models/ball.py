@@ -1,6 +1,6 @@
 import random
 import pygame
-from constants import LIMITS
+from constants import LIMITS, WINDOW_HEIGHT as winy, WINDOW_WIDTH as winx
 
 
 class Ball(pygame.sprite.Sprite):
@@ -94,7 +94,7 @@ class Ball(pygame.sprite.Sprite):
             self.vspeed = -self.vspeed * 0.5
         # Power bounce: increase the speed of the ball
         if power:
-            if self.hspeed < 16:
+            if self.hspeed < int(winx/37.5):
                 self.hspeed *= 1.3
-            if self.vspeed < 6:
+            if self.vspeed < int(winy/100):
                 self.vspeed *= 1.3
